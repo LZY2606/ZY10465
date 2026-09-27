@@ -55,3 +55,17 @@ jobs:
           cargo test --no-default-features
           cargo build --all-features
           cargo test --all-features
+
+  feature_matrix:
+    name: Feature combination & MSRV contract gate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+      - name: Fetch locked dependencies
+        run: cargo fetch --locked
+      - name: Feature matrix gate
+        run: bash scripts/feature-matrix.sh
+      - name: Gate negative tests
+        run: bash scripts/feature-matrix-test.sh

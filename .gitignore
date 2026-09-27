@@ -1,7 +1,6 @@
 /*.iml
 /.idea
 target/
-Cargo.lock
 testing-bugs/
 
 # --- 依赖与构建产物（不进交付快照）---

@@ -22,4 +22,13 @@ proc-macro-error3 = "3"
 darling = { version = "0.23", features = ["suggestions"] }
 
 [features]
-nightly_features = ["proc-macro-error3/nightly"]
+# Deprecated no-op kept for feature-name compatibility.
+#
+# Forwarding to `proc-macro-error3/nightly` pulls in
+# `#![feature(proc_macro_diagnostic)]`, which fails with E0554 on any
+# non-nightly rustc. Because `--all-features` enables every feature in the
+# workspace, that forwarding made `cargo test --workspace --all-features`
+# uncompilable on stable/MSRV toolchains, so the feature-combination gate
+# (see docs/feature-matrix.md) requires this feature to stay a no-op until
+# proc-macro-error3 offers toolchain-conditional activation.
+nightly_features = []
